@@ -1,0 +1,10 @@
+- A NodeJS Framework
+- Built on ExpressJS
+- Embraces TypeScript, Dependency Injection & Modularity
+- Can be used to build MVC apps or REST or GRAPH QL APIs
+- Enforces clean code and a clear project structure by giving you a series of building blocks
+- Makes complex application easy
+- Nest provides an out-of-the-box application architecture which allows developers and teams to
+  create highly testable, scalable, loosely coupled, and easily maintainable applications.
+  The architecture is heavily inspired by Angular.
+

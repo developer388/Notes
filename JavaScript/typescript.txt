@@ -1,0 +1,296 @@
+number   all numbers (integer or float)  
+string   all text values				 
+boolean  true or false					 
+object   {field: string}				 
+array    string[] or Array<string>		 
+tuple    [string, number]				 
+enum     enum {active, inactive}		 
+any      any[]							 
+	
+undefined
+void: function that returns undefined value 
+never: function that never returns a value (even undefined) [raise error, infinite loop]
+unknown: less restrive than any, we need to have extra check
+
+let s: unkown = 23
+let a: string = '34'
+
+a = s  -- cannot be used
+
+
+
+type definition for a function
+function (arg1: type, arg2: type): type {
+	
+}
+
+type defintion for a function reference
+let functionReference: (a:number, b:number) => number
+
+type definition for a callback function
+doAsync(s:string, s2:string, cb: (num: number)=>void) {
+	cb(3)
+}
+
+Function
+null
+bigint
+symbol
+
+
+readonly is used to make variables readonly in a class or a interface
+
+interface: interface in typescript is used to define shape of an object
+		   it can also be used an contract for class that a class should adhere to
+		   a interface has abstract methods
+		   a class can implement multiple interfaces
+
+		   an interface can extend another interface in typescript		   
+		   an interface can extend multiple interfaces in typescript (all are merged together)
+
+generics
+         const arr: Array<string> = []        same as     const arr: string[] = []
+
+         const promise: Promise<any> = new Promise((res, rej)=>{
+         	res(3)
+         })
+
+
+         const promise: Promise<string> = new Promise((res, rej)=>{
+         	res('hello')
+         })
+
+
+
+        function add<A> (a:A): A  {
+            return a
+        }
+
+
+        add<number>(3)
+
+
+        class
+        class Animal<T> {
+
+            constructor (private legs_count: T) {
+                this.legs_count = legs_count
+            }
+        }
+
+
+
+        let a = new Animal<number>(34)
+        let b = new Animal<string>('nikla')
+
+ES-6 
+
+
+1 let/const
+ 
+
+const does't allow to assign a value which has different memory address, meaning we can modify
+an array or object items defined with const keyword
+
+variables defined using the var keyword have function scope, meaning they are accessible within the function in which they are defined, as well as within nested functions. However, they are not block-scoped, which means they are not restricted to the block (code between curly braces) in which they are defined.
+
+2 arrow function
+
+(x,y) => x+y                  [function with single body statement]
+ 
+ x => x+1                      [function with single argument and single body statement]
+
+
+(x,y)=> {                    [function with multiple body statements]
+	z = x + y
+	return z
+}
+
+
+//this binding in arrow functions
+function Coordinate(x,y) {
+    this.x = x
+    this.y = y
+    
+    function prvt () {
+        return [this.x, this.y]
+    }
+    // const prvt = () => {
+    //     return [this.x, this.y]
+    // }
+    
+    this.getCoordinateValues = function() {
+        return prvt.call(this)
+    }
+}
+
+let origin = new Coordinate(3,0)
+console.log(origin.getCoordinateValues())
+
+
+
+3. Default argument to functions  (default argument should be defined in last)
+							   (because at time of passing arguments we cannot skip)
+
+function sum(a, b=10) {
+	return a+b
+}
+
+sum(2)
+
+
+4.  The Spread Operator (...)
+	
+   individual items are copied
+   
+   Array Example
+   ar = []
+   ar2 = [2,4,5]
+   ar = [...ar]
+
+   ar2 becomes [2,4,5]
+
+   Object Example
+   ob = {}
+   ob2 = {'first_name': 'nikhil', 'last_name':'gautam'}
+   ob = {...ob2}
+
+   ob becomes {'first_name': 'nikhil', 'last_name':'gautam'}
+
+5. Rest Paramenters
+
+   function sum(...arg) {
+     return arg.reduce((total, ith_value)=>total + ith_value)
+   }
+
+   sum(1,1,1,1,1,1)  gives 6
+
+
+6. Array Object Destructuring
+
+   Array Example:
+
+	   let nums = [101, 102] 
+
+	   let [variable1, variable2] = nums
+
+	   variable1 contains 101
+	   variable1 contains 102
+
+     Example2:
+
+
+	   let nums = [101, 102, 103, 104] 
+
+	   let [variable1, variable2, ...arr] = nums
+
+	   variable1 contains 101
+	   variable1 contains 102
+	   arr contains [103, 104]
+
+
+	 Object Example
+	   let ob = {name: 'nikhil', dob: 6}
+	   let {name, dob} = ob  // variable name should match with object key used for destructuring
+
+
+
+
+
+Import the Whole Module:
+    You can import the entire module using the import statement. All exported items from the module will be available under the myModule namespace.
+            import * as myModule from './myModule';
+
+Import Specific Items:
+    You can import specific functions, classes, or variables from the module using the import { item } from 'module' syntax.
+        import { myFunction, MyClass, myVariable } from './myModule';
+
+Import with Alias:
+    You can use an alias to rename the imported items, making them easier to reference in your code.
+        import { myFunction as func, MyClass as CustomClass } from './myModule';
+
+Import All Items with an Alias:
+    You can import all exported items from a module and use an alias to reference them.
+        import * as mm from './myModule';
+
+
+Import Default Export:
+    If a module has a default export (often a single item), you can import it using the import item from 'module' syntax        
+        import myDefaultExport from './myModule';
+
+Combining Imports:
+    You can combine different import statements in a single import statement.
+        import myDefaultExport, { myFunction, MyClass } from './myModule';
+
+
+
+
+Tuple:
+
+    let tuple :[[number, number]] =  [[1,2]];
+
+    tuple.push([6,7])
+
+    tuple.push([2,3])
+    tuple.push([4,2])
+    tuple.push([1,0])
+
+    console.log(tuple)
+
+    tuple[0] = [[4,6]] ----> not allowed tuple values are immutable
+
+
+
+
+Annonymous Function:
+
+
+let arrow: (a:number, b:number)=>number  = (a,b)=>  {
+    return a+b
+}
+
+console.log(arrow(3,4))
+
+
+Optional Paramenter Type:
+
+function greet(name: string, greeting?: string) {
+    if (!greeting)
+      greeting = "Hello";
+
+    console.log(`${greeting}, ${name}`);
+}
+
+
+Does TypeScript support static classes? If not, why?
+    TypeScript doesn’t support static classes, unlike the popular object-oriented programming languages like C# and Java.
+
+How to make object properties immutable in TypeScript? (hint: readonly)
+    You can mark object properties as immutable by using the readonly keyword before the property name. For example:
+
+    interface Coordinate {
+        readonly x: number;
+        readonly y: number;
+    }
+
+
+
+
+
+
+
+
+Project Structure:
+
+    
+
+    Product
+        product.controller.ts    [Module Specific Routes]
+        product.service.ts       [Injectable Service, contains bussiness logic ]
+        product.module.ts        [Module definition]
+        product.model.ts         [Models]
+
+    app.controller.ts
+    app.service.ts
+    app.module.ts                [Main Module]
+    main.ts                      [Main File]
